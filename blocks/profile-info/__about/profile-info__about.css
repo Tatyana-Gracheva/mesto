@@ -1,0 +1,18 @@
+.profile-info__about {
+  font-family: Inter, Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 1.22;
+  color: #FFFFFF;
+  margin: 0;
+  padding: 8px 17px 0 30px;
+  grid-area: about;
+}
+
+@media all and (max-width: 880px) {
+  .profile-info__about {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}

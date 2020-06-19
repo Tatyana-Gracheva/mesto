@@ -1,0 +1,29 @@
+.popup__content {
+  position: absolute;
+  width: 430px;
+  left: 425px;
+  top: 195px;
+  background: #FFFFFF;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+}
+
+@media all and (max-width: 1050px) {
+  .popup__content {
+    left: 310px;
+    top: 150px;
+  }
+}
+
+@media all and (max-width: 880px) {
+  .popup__content {
+    left: 225px;
+    width: 252px;
+  }
+}
+
+@media all and (max-width: 580px) {
+  .popup__content {
+    left: 19px;
+  }
+}

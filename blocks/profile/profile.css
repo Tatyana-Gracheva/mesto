@@ -1,0 +1,20 @@
+.profile {
+  width: calc(100% - 200px*2);
+  padding: 36px 200px 0;
+  display: flex;
+  justify-content: space-between;
+  justify-items: center;
+}
+
+@media all and (max-width: 1050px) {
+  .profile {
+    display: block;
+  }
+}
+
+@media all and (max-width: 880px) {
+  .profile  {
+    width: calc(100% - 19px*2);
+    padding: 42px 19px 0;
+  }
+}
