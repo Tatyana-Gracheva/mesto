@@ -1,4 +1,4 @@
-.profile-info__flex {
+.profile-info__line-name-button {
   display: flex;
   flex-direction: row;
   grid-area: flex-block;
@@ -6,7 +6,7 @@
 }
 
 @media all and (max-width: 880px) {
-  .profile-info__flex {
+  .profile-info__line-name-button {
    justify-content: center;
   }
 }

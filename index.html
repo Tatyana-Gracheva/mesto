@@ -9,22 +9,22 @@
 <body class="page">
   <div class="content">
     <header class="header">
-      <img class="logo" src="./images/logo.svg" alt="Здесь логотип Mesto Russia">
+      <img class="header__logo" src="./images/logo.svg" alt="Здесь логотип Mesto Russia">
     </header>
     <main>
       <section class="profile">
         <div class="profile-info">
-          <img class="avatar" src="./images/jac-kusto.jpg" alt="Здесь аватар (фото Жака-Ив Кусто)">
-          <div class="profile-info__flex">
+          <img class="profile-info__avatar" src="./images/jac-kusto.jpg" alt="Здесь аватар (фото Жака-Ив Кусто)">
+          <div class="profile-info__line-name-button">
             <h1 class="profile-info__name">Жак-Ив Кусто</h1>
             <button class="profile-info__edit-button"></button>
           </div>
           <p class="profile-info__about">Исследователь океана</p>
         </div>
-        <button class="add-button"></button>
+        <button class="profile-info__add-button"></button>
       </section>
 
-      <section>
+      <section class="pictures">
         <ul  class="elements">
           <li class=element>
             <img class="element__image" src="./images/Karachaevsk.jpg" alt="Здесь фото Карачаевска">
@@ -71,16 +71,16 @@
         </ul>
       </section>
     </main>
-    <footer>
-      <h4 class="footer">&copy; 2020 Mesto Russia</h4>
+    <footer class="footer">
+      <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
     
     <section class="popup">
-      <div class="popup__close"></div>  
+      <button class="popup__close"></button>  
       <form class="popup__content">
         <h4 class="popup__title">Редактировать профиль</h4>
-        <input type="text" class="popup__input-name" value="Жак-Ив Кусто">
-        <input type="text" class="popup__input-about" value="Исследователь океана">
+        <input type="text" name="input-name" class="popup__input popup__input_name" value="Жак-Ив Кусто">
+        <input type="text" name="input-about" class="popup__input popup__input_about" value="Исследователь океана">
         <button class="popup__submit-button">Сохранить</button>
       </form>
     </section>

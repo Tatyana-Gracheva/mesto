@@ -1,6 +1,5 @@
 .elements {
-  width: calc(100% - 200px*2);
-  padding: 48px 200px 0;
+  padding: 0;
   margin: 0 auto;
   list-style-type: none;
   display: grid;
@@ -10,9 +9,3 @@
   justify-content: center;
 }
 
-@media all and (max-width: 880px) {
-  .elements {
-    width: calc(100% - 19px*2);
-    padding: 26px 19px 0;
-  }
-}

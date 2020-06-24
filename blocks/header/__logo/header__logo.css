@@ -1,11 +1,10 @@
-.logo {
+.header__logo {
   width: 142px;
   height: 33px;
-  padding-bottom: 40px;
 }
 
 @media all and (max-width: 880px) {
-  .logo  {
+  .header__logo  {
     padding: 0 0 31px 27px;
     width: 104px;
     height: 24px;

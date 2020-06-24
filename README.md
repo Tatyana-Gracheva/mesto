@@ -9,4 +9,4 @@
 
 Целью реализации проекта стало получение базовых навыков работы с JavaScript. Для этого была создана popup-форма для изменения данных пользователя. Также для построения блоков сайта использовались технологии "Grid Layout" и "flex".
 
-Ссылка проекта на GitHub [GitHub](http://tatyana-gracheva.github.io/russian-travel/index.html)
+Ссылка проекта на GitHub [GitHub](https://tatyana-gracheva.github.io/mesto/index.html)
