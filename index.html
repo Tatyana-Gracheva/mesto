@@ -26,48 +26,7 @@
 
       <section class="pictures">
         <ul  class="elements">
-          <li class=element>
-            <img class="element__image" src="./images/Karachaevsk.jpg" alt="Здесь фото Карачаевска">
-            <div class="element__signature">
-              <h3 class="element__name">Карачаево-Черкесск</h3>
-              <button class="element__like"></button>
-            </div>
-          </li>
-          <li class=element>
-            <img class="element__image" src="./images/Gora-Elbrus.png" alt="Здесь фото Горы Эльбрус">
-            <div class="element__signature">
-              <h3 class="element__name">Гора Эльбрус</h3>
-              <button class="element__like"></button>
-            </div>
-          </li>
-          <li class=element>
-            <img class="element__image" src="./images/Dombai.jpg" alt="Здесь фото Домбай">
-            <div class="element__signature">
-              <h3 class="element__name">Домбай</h3>
-              <button class="element__like"></button>
-            </div>
-          </li>
-          <li class=element>
-            <img class="element__image" src="./images/Karachaevsk.jpg" alt="Здесь фото Карачаевска">
-            <div class="element__signature">
-              <h3 class="element__name">Карачаево-Черкесск</h3>
-              <button class="element__like"></button>
-            </div>
-          </li>
-          <li class=element>
-            <img class="element__image" src="./images/Gora-Elbrus.png" alt="Здесь фото Горы Эльбрус">
-            <div class="element__signature">
-              <h3 class="element__name">Гора Эльбрус</h3>
-              <button class="element__like"></button>
-            </div>
-          </li>
-          <li class=element>
-            <img class="element__image" src="./images/Dombai.jpg" alt="Здесь фото Домбай">
-            <div class="element__signature">
-              <h3 class="element__name">Домбай</h3>
-              <button class="element__like"></button>
-            </div>
-          </li>
+          
         </ul>
       </section>
     </main>
@@ -75,16 +34,50 @@
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
     
-    <section class="popup">
+
+
+    <section class="popup popup_edit-profile">
       <button class="popup__close"></button>  
       <form class="popup__content">
         <h4 class="popup__title">Редактировать профиль</h4>
-        <input type="text" name="input-name" class="popup__input popup__input_name" value="Жак-Ив Кусто">
-        <input type="text" name="input-about" class="popup__input popup__input_about" value="Исследователь океана">
+        <input type="text" name="input-name" class="popup__input popup__input_fist-value" value="Жак-Ив Кусто">
+        <input type="text" name="input-about" class="popup__input popup__input_second-value" value="Исследователь океана">
         <button class="popup__submit-button">Сохранить</button>
       </form>
     </section>
+  
+    <section class="popup popup_add-element">
+      <button class="popup__close"></button>  
+      <form class="popup__content">
+        <h4 class="popup__title">Новое место</h4>
+        <input type="text" name="input-title" class="popup__input popup__input_fist-value" value = "" placeholder="Название">
+        <input type="text" name="input-url" class="popup__input popup__input_second-value" value = "" placeholder="Ссылка на картинку">
+        <button class="popup__submit-button">Создать</button>
+      </form>
+    </section>
+
+    <section class="popup  popup_image-big">
+      <div class="popup__box">
+        <button class="popup__close popup__close_image-big"></button>
+        <img class="popup__box-image" src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg" alt="Здесь фото ">
+        <p class="popup__box-title"></p>
+      </div>
+    </section>
+
   </div>
+
+
+  <!--это template для создания карточек внутри списка с классом "elements"-->
+  <template class="element-template">
+    <li class="element">
+      <img class="element__image" src="" alt="Здесь фото ">
+      <button class="element__delet"></button>
+      <div class="element__signature">
+        <h3 class="element__name"></h3>
+        <button class="element__like"></button>
+      </div>
+    </li>
+  </template>
   <script src='./scripts/index.js'></script>
 </body>
 </html>

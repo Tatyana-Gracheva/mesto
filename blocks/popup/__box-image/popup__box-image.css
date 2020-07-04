@@ -1,0 +1,13 @@
+.popup__box-image {
+  max-height: 75vh;
+  height: 100%;
+  width: auto;  
+}
+
+@media all and (max-width: 700px) {
+.popup__box-image {
+  max-width: 75vw;
+  width: 100%;
+  height: auto;  
+}
+}
