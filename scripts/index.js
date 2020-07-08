@@ -46,6 +46,17 @@ const formElement = popupEditProfile.querySelector('.popup__content');
 //константы для ручного добавления карточки
 const popupAddCardSForm = popupAddCard.querySelector('.popup__content');
 
+ // константы для внесения изменений в профиль пользователя
+ const nameInput = popupEditProfile.querySelector('.popup__input_fist-value');
+ const jobInput = popupEditProfile.querySelector('.popup__input_second-value');
+ const profileName = profileInfo.querySelector('.profile-info__name');
+ const profileJob = profileInfo.querySelector('.profile-info__about');
+
+ //константы для создания новой карточки
+const titleInput = popupAddCard.querySelector('.popup__input_fist-value').value;
+const urlInput = popupAddCard.querySelector('.popup__input_second-value').value;
+const newCard = {name: titleInput, link: urlInput};
+
 //функция добавления карточек
 function addCard(arrCards) {
   const card = cardTemplate.content.cloneNode(true);
@@ -83,7 +94,7 @@ initialCards.forEach(addCard);
 
 //функция для открытия/закрытия попапов
 const popupToggle =  (popup) => {
-  popup.classList.toggle('popup__opened');
+  popup.classList.toggle('popup_opened');
 }
 
 popupOpenButtonEditProfile.addEventListener('click', () => {
@@ -105,20 +116,11 @@ function formSubmitHandler (evt) {
                       // Так мы можем определить свою логику отправки.
                       // О том, как это делать, расскажем позже.
 
-  // Находим поля формы в DOM
-  const nameInput = popupEditProfile.querySelector('.popup__input_fist-value');
-  const jobInput = popupEditProfile.querySelector('.popup__input_second-value');
-
-  // Выберите элементы, куда должны быть вставлены значения полей
-  const profileName = profileInfo.querySelector('.profile-info__name');
-  const profileJob = profileInfo.querySelector('.profile-info__about');
-  
-
   // Вставьте новые значения с помощью textContent
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
 
-  popupEditProfile.classList.toggle('popup__opened');
+  popupToggle(popupEditProfile);
 }
 
 // Прикрепляем обработчик к форме:
@@ -128,13 +130,9 @@ formElement.addEventListener('submit', formSubmitHandler);
 function cardAddHandle (evt) {
   evt.preventDefault();
 
-  const titleInput = popupAddCard.querySelector('.popup__input_fist-value').value;
-  const urlInput = popupAddCard.querySelector('.popup__input_second-value').value;
-  const newCard = {name: titleInput, link: urlInput};
- 
   addCard(newCard);
 
-  popupAddCard.classList.toggle('popup__opened');
+  popupToggle(popupAddCard);
   popupAddCard.querySelector('.popup__input_fist-value').value = '';
   popupAddCard.querySelector('.popup__input_second-value').value = '';
 }

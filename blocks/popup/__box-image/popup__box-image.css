@@ -1,10 +1,9 @@
 .popup__box-image {
   max-height: 75vh;
-  height: 100%;
   width: auto;  
 }
 
-@media all and (max-width: 700px) {
+@media all and (max-width: 800px) {
 .popup__box-image {
   max-width: 75vw;
   width: 100%;

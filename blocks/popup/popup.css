@@ -12,7 +12,6 @@
 @import url(./__box/popup__box.css);
 @import url(./__box-image/popup__box-image.css);
 @import url(./__box-title/popup__box-title.css);
-@import url(./__opened/popup__opened.css);
 
 .popup {
   position: fixed;
