@@ -53,9 +53,9 @@ const popupAddCardSForm = popupAddCard.querySelector('.popup__content');
  const profileJob = profileInfo.querySelector('.profile-info__about');
 
  //константы для создания новой карточки
-const titleInput = popupAddCard.querySelector('.popup__input_fist-value').value;
-const urlInput = popupAddCard.querySelector('.popup__input_second-value').value;
-const newCard = {name: titleInput, link: urlInput};
+const titleInput = popupAddCard.querySelector('.popup__input_fist-value');
+const urlInput = popupAddCard.querySelector('.popup__input_second-value');
+
 
 //функция добавления карточек
 function addCard(arrCards) {
@@ -129,12 +129,12 @@ formElement.addEventListener('submit', formSubmitHandler);
 
 function cardAddHandle (evt) {
   evt.preventDefault();
-
+  const newCard = {name: titleInput.value, link: urlInput.value};
   addCard(newCard);
 
   popupToggle(popupAddCard);
-  popupAddCard.querySelector('.popup__input_fist-value').value = '';
-  popupAddCard.querySelector('.popup__input_second-value').value = '';
+  titleInput.value = '';
+  urlInput.value = '';
 }
 
 popupAddCardSForm.addEventListener('submit', cardAddHandle);
