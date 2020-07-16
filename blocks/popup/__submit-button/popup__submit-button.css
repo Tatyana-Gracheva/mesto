@@ -10,7 +10,7 @@
   line-height: 22px;
   text-align: center;
   color: #FFFFFF;
-  margin: 48px 36px 36px;
+  margin: 31px 36px 36px;
   padding: 0;
   cursor: pointer;
   border: none;
@@ -22,6 +22,6 @@
     height: 40px;
     font-size: 14px;
     line-height: 18px;
-    margin: 30px 20px 20px;
+    margin: 20px 20px 20px;
   }
 }

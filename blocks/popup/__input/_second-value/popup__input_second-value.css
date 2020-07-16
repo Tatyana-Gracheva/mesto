@@ -1,9 +1,9 @@
 .popup__input_second-value {
-  margin: 30px 36px 0;
+  margin: 13px 36px 0;
 }
 
 @media all and (max-width: 880px) {
   .popup__input_second-value {
-    margin: 20px 20px 0;
+    margin: 10px 20px 0;
   }
 }
