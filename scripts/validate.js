@@ -42,19 +42,19 @@ function setEventListeners (form, {inputSelector, submitButtonSelector, ...rest}
 //функция проверки на хотябы одно невалидное поле
 function hasInvalidInput(inputList) {
   return inputList.some((inputElement) => {
-  return !inputElement.validity.valid;
-});
+    return !inputElement.validity.valid;
+  });
 }
 
 //функция изменения активности кнопок в зависимости от того, какое значение вернет функция hasInvalidInput
 function toggleButtonState(inputList, buttonElement, {inactiveButtonClass}) {
   if (hasInvalidInput(inputList)) {
-  buttonElement.classList.add(inactiveButtonClass);
-  buttonElement.setAttribute('disabled', true);
-} else {
-  buttonElement.classList.remove(inactiveButtonClass);
-  buttonElement.removeAttribute('disabled');
-}
+    buttonElement.classList.add(inactiveButtonClass);
+    buttonElement.setAttribute('disabled', true);
+  } else {
+    buttonElement.classList.remove(inactiveButtonClass);
+    buttonElement.removeAttribute('disabled');
+  }
 }
   
 //функция проверки на валидность инпута
@@ -71,16 +71,15 @@ const checkInputValidity = (form, inputElement, {...rest}) => {
 //функция показа ошибки, если поле невалидно
 const showInputError = (form, inputElement, errorMessage, {inputErrorClass, errorClass}) => {
   //вызов функции поиска элемента, (в который нужно записать)/(в котором нужно скрыть) ошибку
-  searchErrorInput(form, inputElement);
+  const errorElement = searchErrorInput(form, inputElement);
   inputElement.classList.add(inputErrorClass);
   errorElement.textContent = errorMessage;
   errorElement.classList.add(errorClass);
-  
 };
 
 //функция скрытия ошибки
-const hideInputError = (form, inputElement, {submitButtonSelector, inactiveButtonClass, inputErrorClass, errorClass}) => {
-  searchErrorInput(form, inputElement);
+const hideInputError = (form, inputElement, {inputErrorClass, errorClass}) => {
+  const errorElement = searchErrorInput(form, inputElement);
   inputElement.classList.remove(inputErrorClass);
   errorElement.classList.remove(errorClass);
   errorElement.textContent = '';
@@ -88,7 +87,7 @@ const hideInputError = (form, inputElement, {submitButtonSelector, inactiveButto
 
 //функция поиска элемента, (в который нужно записать)/(в котором нужно скрыть) ошибку
 function searchErrorInput(form, inputElement) {
-  return errorElement = form.querySelector(`#${inputElement.name}-error`);
-};
+  return form.querySelector(`#${inputElement.name}-error`);
+}
 
 enableValidation(formObject);

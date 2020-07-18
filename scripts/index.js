@@ -39,6 +39,8 @@ const popupCloseButtonEditProfile = popupEditProfile.querySelector('.popup__clos
 const popupCloseButtonAddCard = popupAddCard.querySelector('.popup__close');
 const popupCloseButtonImageBig = popupImageBig.querySelector('.popup__close');
 
+const submitButtonAddCard = popupAddCard.querySelector('.popup__submit-button');
+
 //константы для редактирования профиля
 const profileInfo = document.querySelector('.profile-info');
 const formElement = popupEditProfile.querySelector('.popup__content');
@@ -59,72 +61,59 @@ const urlInput = popupAddCard.querySelector('.popup__input_second-value');
 //находим массив всех форм
 const popupList = Array.from(document.querySelectorAll('.popup'));
 
-//функция добавления карточек
-function addCard(arrCards) {
+//функция создания разметки для новой карточки
+function createCard(newCardToCreate) {
   const card = cardTemplate.content.cloneNode(true);
   const cardDeleteButton = card.querySelector('.element__delet');
   const cardLikeButton = card.querySelector('.element__like');
   const popupOpenButtonImageBig = card.querySelector('.element__image');
     
-  card.querySelector('.element__image').src = arrCards.link;
-  card.querySelector('.element__image').alt += arrCards.name;
-  card.querySelector('.element__name').textContent = arrCards.name;
+  popupOpenButtonImageBig.src = newCardToCreate.link;
+  popupOpenButtonImageBig.alt += newCardToCreate.name;
+  card.querySelector('.element__name').textContent = newCardToCreate.name;
 
   //обработчик события "клик по кнопке удаления"
-  cardDeleteButton.addEventListener('click',cardDeleted);
+  cardDeleteButton.addEventListener('click',deletCard);
   //обработчик события "лайк на карточке"
   cardLikeButton.addEventListener('click',() => {
-    cardLikeButton.classList.toggle('element__like_active')});
+    cardLikeButton.classList.toggle('element__like_active')
+  });
   //обработчик события "открыть большую картинку"
   popupOpenButtonImageBig.addEventListener('click', () => {
-    popupImageBig.querySelector('.popup__box-image').src = arrCards.link;
-    popupImageBig.querySelector('.popup__box-image').alt += arrCards.name;
-    popupImageBig.querySelector('.popup__box-title').textContent = arrCards.name;
-    popupToggle(popupImageBig);
-    popupListenerEsc(popupList)});
+    openImageBig(popupImageBig, newCardToCreate);
+  });
 
-  cards.prepend(card);
+  return card;
+}
+
+//функция открытия большой картинки
+function openImageBig(popup, newCard) {
+  const popupImage =  popup.querySelector('.popup__box-image');
+  popupImage.src = newCard.link;
+  popupImage.alt += newCard.name;
+  popup.querySelector('.popup__box-title').textContent = newCard.name;
+  openPopup(popup);
+}
+
+//функция добавления новой карточки
+function addCard(data, cardPlace) {
+  const card = createCard(data);
+  cardPlace.prepend(card);
 }
 
 //функция удаления карточек
-function cardDeleted(evt) {
-  const cardDelete= evt.currentTarget.parentNode;
-  cardDelete.remove();
+function deletCard(evt) {
+  const cardDeleted = evt.currentTarget.parentNode;
+  cardDeleted.remove();
 }
 
-//создаем карточки из массива
-initialCards.forEach(addCard);
-
 //функция для открытия/закрытия попапов
-const popupToggle =  (popup) => {
+const togglePopup =  (popup) => {
   popup.classList.toggle('popup_opened');
 }
 
-popupOpenButtonEditProfile.addEventListener('click', () => {
-  popupToggle(popupEditProfile)
-  popupListenerEsc(popupList);
-});
-popupCloseButtonEditProfile.addEventListener('click', () => {
-  popupToggle(popupEditProfile);
-  popupRemoveListenerEsc(popupList);
-});
-
-popupOpenButtonAddCard.addEventListener('click', () => {
-  popupToggle(popupAddCard);
-  popupListenerEsc(popupList);
-});
-popupCloseButtonAddCard.addEventListener('click', () => {
-  popupToggle(popupAddCard);
-  popupRemoveListenerEsc(popupList);
-});
-
-popupCloseButtonImageBig.addEventListener('click', () => {
-  popupToggle(popupImageBig);
-  popupRemoveListenerEsc(popupList);
-}); 
-
 //функция изменения данных профиля
-function formSubmitHandler (evt) {
+function formSubmitHandler(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
                       // Так мы можем определить свою логику отправки.
                       // О том, как это делать, расскажем позже.
@@ -133,60 +122,96 @@ function formSubmitHandler (evt) {
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
 
-  popupToggle(popupEditProfile);
+  togglePopup(popupEditProfile);
 }
+
+//функция добавления карточки через модальное окно
+function handleAddCard(evt) {
+  
+  evt.preventDefault();
+  const newCard = {name: titleInput.value, link: urlInput.value};
+  addCard(newCard, cards);
+
+  togglePopup(popupAddCard);
+  titleInput.value = '';
+  urlInput .value = '';
+  submitButtonAddCard.classList.add('popup__submit-button_disabled');
+  submitButtonAddCard.setAttribute('disabled', true);
+}
+
+//функция наложения слушателя на все попапы
+function addListeneClickEsc() {
+  document.addEventListener('keyup', closePopupEsc);
+}
+
+//функция удаления слушателя нажатия на Esc со всех попапов
+function removeListenerClickEsc() {
+  document.removeEventListener('keyup', closePopupEsc);
+}
+
+//функция закрытия попапа при нажатии на еcs
+const closePopupEsc = (evt) => {
+  const popupActive = document.querySelector('.popup_opened');
+  if (evt.key === 'Escape') {
+    togglePopup(popupActive);
+    removeListenerClickEsc(popupList);
+  } 
+};
+
+//функция добавления слушателя для закрытия попапов через клик по overlay
+function addListenerClickOverlay(popup) {
+  popup.addEventListener('click', closePopupOverlay);
+}
+
+//функция удаления слушателя для закрытия попапов через клик по overlay
+function removeListenerClickOverlay(popup) {
+  popup.removeEventListener('click', closePopupOverlay); 
+}
+
+//функция проверки на клик по overlay и закрытие попапа
+const closePopupOverlay = (evt) => {
+  const popupActive = document.querySelector('.popup_opened');
+  if (evt.target !== evt.currentTarget) {return}
+  togglePopup(popupActive);
+  removeListenerClickEsc(popupList);
+};
+
+//создаем карточки из массива
+initialCards.forEach((data) => addCard(data, cards));
 
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
 formElement.addEventListener('submit', formSubmitHandler);
 
-function cardAddHandle (evt) {
-  evt.preventDefault();
-  const newCard = {name: titleInput.value, link: urlInput.value};
-  addCard(newCard);
+popupAddCardSForm.addEventListener('submit', handleAddCard);
 
-  popupToggle(popupAddCard);
-  titleInput.value = '';
-  urlInput .value = '';
+function openPopup(popupOpened) {
+  togglePopup(popupOpened);
+  addListeneClickEsc();
+  addListenerClickOverlay(popupOpened);
 }
 
-popupAddCardSForm.addEventListener('submit', cardAddHandle);
-
-//функция наложения слушателя на все попапы
-function popupListenerEsc(popupList) {
-  popupList.forEach(() => {
-    document.addEventListener('keyup', popupCloseEsc);
-  })
-}
-//функция удаления слушателя со всех попапов
-function popupRemoveListenerEsc(popupList) {
-  popupList.forEach(() => {
-    document.removeEventListener('keyup', popupCloseEsc);
-  })
+function closePopup(popupOpened) {
+  togglePopup(popupOpened);
+  removeListeneClickEsc();
+  removeListenerClickOverlay(popupOpened);
 }
 
-//функция закрытия попапа при нажатии на еcs
-const popupCloseEsc = (evt) => {
-  const popupActive = document.querySelector('.popup_opened');
-  if (evt.key === 'Escape') {
-    popupToggle(popupActive);
-    popupRemoveListenerEsc(popupList);
-    } 
-}
+popupOpenButtonEditProfile.addEventListener('click', () => {
+  openPopup(popupEditProfile);
+});
 
-//функция закрытия попапов через клик по overlay
-function popupListenerOverlay(popupList) {
-  popupList.forEach((popup) => {
-    popup.addEventListener('click', popupCloseOverlay);
-  })
-}
+popupCloseButtonEditProfile.addEventListener('click', () => {
+  closePopup(popupEditProfile);
+});
 
-//функция проверки на клик по overlay и закрытие попапа
-const popupCloseOverlay = (evt) => {
-  const popupActive = document.querySelector('.popup_opened');
-  if (evt.target !== evt.currentTarget) {rerurn}
-  popupToggle(popupActive);
-  popupRemoveListenerEsc(popupList);
-}
+popupOpenButtonAddCard.addEventListener('click', () => {
+  openPopup(popupAddCard);
+});
+popupCloseButtonAddCard.addEventListener('click', () => {
+  closePopup(popupAddCard);
+});
 
-popupListenerOverlay(popupList);
+popupCloseButtonImageBig.addEventListener('click', () => {
+  closePopup(popupImageBig);
+}); 
