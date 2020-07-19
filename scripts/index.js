@@ -39,7 +39,7 @@ const popupCloseButtonEditProfile = popupEditProfile.querySelector('.popup__clos
 const popupCloseButtonAddCard = popupAddCard.querySelector('.popup__close');
 const popupCloseButtonImageBig = popupImageBig.querySelector('.popup__close');
 
-const submitButtonAddCard = popupAddCard.querySelector('.popup__submit-button');
+const submitButtonAddCard = popupAddCard.querySelector(formObject.submitButtonSelector);
 
 //константы для редактирования профиля
 const profileInfo = document.querySelector('.profile-info');
@@ -49,14 +49,14 @@ const formElement = popupEditProfile.querySelector('.popup__content');
 const popupAddCardSForm = popupAddCard.querySelector('.popup__content');
 
  // константы для внесения изменений в профиль пользователя
-const nameInput = popupEditProfile.querySelector('.popup__input_fist-value');
-const jobInput = popupEditProfile.querySelector('.popup__input_second-value');
+const nameInput = popupEditProfile.querySelector('.popup__input_type_fist-value');
+const jobInput = popupEditProfile.querySelector('.popup__input_type_second-value');
 const profileName = profileInfo.querySelector('.profile-info__name');
 const profileJob = profileInfo.querySelector('.profile-info__about');
 
 //константы для создания новой карточки
-const titleInput = popupAddCard.querySelector('.popup__input_fist-value');
-const urlInput = popupAddCard.querySelector('.popup__input_second-value');
+const titleInput = popupAddCard.querySelector('.popup__input_type_fist-value');
+const urlInput = popupAddCard.querySelector('.popup__input_type_second-value');
 
 //находим массив всех форм
 const popupList = Array.from(document.querySelectorAll('.popup'));
@@ -73,7 +73,7 @@ function createCard(newCardToCreate) {
   card.querySelector('.element__name').textContent = newCardToCreate.name;
 
   //обработчик события "клик по кнопке удаления"
-  cardDeleteButton.addEventListener('click',deletCard);
+  cardDeleteButton.addEventListener('click',deleteCard);
   //обработчик события "лайк на карточке"
   cardLikeButton.addEventListener('click',() => {
     cardLikeButton.classList.toggle('element__like_active')
@@ -102,7 +102,7 @@ function addCard(data, cardPlace) {
 }
 
 //функция удаления карточек
-function deletCard(evt) {
+function deleteCard(evt) {
   const cardDeleted = evt.currentTarget.parentNode;
   cardDeleted.remove();
 }
@@ -135,12 +135,11 @@ function handleAddCard(evt) {
   togglePopup(popupAddCard);
   titleInput.value = '';
   urlInput .value = '';
-  submitButtonAddCard.classList.add('popup__submit-button_disabled');
-  submitButtonAddCard.setAttribute('disabled', true);
+  disabledButton(submitButtonAddCard, formObject.inactiveButtonClass);
 }
 
 //функция наложения слушателя на все попапы
-function addListeneClickEsc() {
+function addListenerClickEsc() {
   document.addEventListener('keyup', closePopupEsc);
 }
 
@@ -153,8 +152,7 @@ function removeListenerClickEsc() {
 const closePopupEsc = (evt) => {
   const popupActive = document.querySelector('.popup_opened');
   if (evt.key === 'Escape') {
-    togglePopup(popupActive);
-    removeListenerClickEsc(popupList);
+    closePopup(popupActive);
   } 
 };
 
@@ -172,8 +170,7 @@ function removeListenerClickOverlay(popup) {
 const closePopupOverlay = (evt) => {
   const popupActive = document.querySelector('.popup_opened');
   if (evt.target !== evt.currentTarget) {return}
-  togglePopup(popupActive);
-  removeListenerClickEsc(popupList);
+  closePopup(popupActive);
 };
 
 //создаем карточки из массива
@@ -187,13 +184,13 @@ popupAddCardSForm.addEventListener('submit', handleAddCard);
 
 function openPopup(popupOpened) {
   togglePopup(popupOpened);
-  addListeneClickEsc();
+  addListenerClickEsc();
   addListenerClickOverlay(popupOpened);
 }
 
 function closePopup(popupOpened) {
   togglePopup(popupOpened);
-  removeListeneClickEsc();
+  removeListenerClickEsc();
   removeListenerClickOverlay(popupOpened);
 }
 

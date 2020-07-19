@@ -46,11 +46,16 @@ function hasInvalidInput(inputList) {
   });
 }
 
+//функция, делающая кнопку неактивной
+function disabledButton(button, inactiveSelector) {
+  button.classList.add(inactiveSelector);
+  button.setAttribute('disabled', true);
+}
+
 //функция изменения активности кнопок в зависимости от того, какое значение вернет функция hasInvalidInput
 function toggleButtonState(inputList, buttonElement, {inactiveButtonClass}) {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(inactiveButtonClass);
-    buttonElement.setAttribute('disabled', true);
+    disabledButton(buttonElement, inactiveButtonClass);
   } else {
     buttonElement.classList.remove(inactiveButtonClass);
     buttonElement.removeAttribute('disabled');
