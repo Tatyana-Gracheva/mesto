@@ -19,7 +19,7 @@ export class FormValidator {
     }
   
   //метод, навешивающая слушатель на каждый инпут формы при внесении любого символа пользователем
-  _setEventListeners = () => {
+  _setEventListeners() {
     //создаем массив инпутов формы
     this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
     this._buttonElement = this._form.querySelector(this._submitButtonSelector);
@@ -35,20 +35,20 @@ export class FormValidator {
   }
 
   //метод проверки на хотябы одно невалидное поле
-  _hasInvalidInput = () => {
+  _hasInvalidInput() {
     return this._inputList.some((inputElement) => {
       return !inputElement.validity.valid;
     });
   }
 
   //метод, делающий кнопку неактивной
-  disabledButton = () => {
+  disabledButton() {
     this._buttonElement.classList.add(this._inactiveButtonClass);
     this._buttonElement.setAttribute('disabled', true);
   }
 
   //метод изменения активности кнопок в зависимости от того, какое значение вернет метод hasInvalidInput
-  _toggleButtonState = () => {
+  _toggleButtonState() {
     if (this._hasInvalidInput(this._inputList)) {
       this.disabledButton();
     } else {
@@ -58,7 +58,7 @@ export class FormValidator {
   }
     
   //метод проверки на валидность инпута
-  _checkInputValidity = (inputElement) => {
+  _checkInputValidity(inputElement) {
     if (!inputElement.validity.valid) {    
       //вызов метода показа ошибки, если поле невалидно
       this._showInputError(inputElement, inputElement.validationMessage);
@@ -69,7 +69,7 @@ export class FormValidator {
   };
 
   //метод показа ошибки, если поле невалидно
-  _showInputError = (inputElement, errorMessage) => {
+  _showInputError(inputElement, errorMessage) {
     //вызов метода поиска элемента, (в который нужно записать)/(в котором нужно скрыть) ошибку
     const errorElement = this._searchErrorInput(inputElement);
     inputElement.classList.add(this._inputErrorClass);
@@ -78,7 +78,7 @@ export class FormValidator {
   };
 
   //метод скрытия ошибки
-  _hideInputError = (inputElement) => {
+  _hideInputError(inputElement) {
     const errorElement = this._searchErrorInput(inputElement);
     inputElement.classList.remove(this._inputErrorClass);
     errorElement.classList.remove(this._errorClass);
@@ -86,7 +86,7 @@ export class FormValidator {
   };
 
   //метод поиска элемента, (в который нужно записать)/(в котором нужно скрыть) ошибку
-  _searchErrorInput = (inputElement) =>{
+  _searchErrorInput(inputElement){
     return this._form.querySelector(`#${inputElement.name}-error`);
   }
 }
