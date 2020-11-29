@@ -1,0 +1,10 @@
+.popup_image-big {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  background: rgba(0, 0, 0, .9);
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility .5s ease, opacity .5s linear;
+}

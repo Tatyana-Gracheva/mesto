@@ -1,0 +1,19 @@
+.popup__content {
+  position: absolute;
+  width: 430px;
+  left: calc(50vw - 430px/2);
+  top: calc(50vh - 330px/2);
+  background: #FFFFFF;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+}
+
+
+
+@media all and (max-width: 880px) {
+  .popup__content {
+    width: 252px;
+    left: calc(50vw - 252px/2);
+    top: calc(50vh - 230px/2);
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "name": "mesto",
+  "version": "1.0.0",
+  "description": "------------------\r -------------------\r #### Одностраничный сайт \"Место\"\r ---------------\r Сайт создан в рамках обучения в сервисе [Яндекс.Практикум](https://praktikum.yandex.ru) по специальности \"Веб-разработчик\" на основе макета в Фигме, адаптирован для различных разрешений устройств просмотра.",
+  "main": "./src/pages/index.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tatyana-Gracheva/mesto.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tatyana-Gracheva/mesto/issues"
+  },
+  "homepage": "https://github.com/Tatyana-Gracheva/mesto#readme",
+  "devDependencies": {
+    "@babel/core": "^7.12.9",
+    "@babel/preset-env": "^7.12.7",
+    "autoprefixer": "^10.0.4",
+    "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^5.0.1",
+    "cssnano": "^4.1.10",
+    "html-webpack-plugin": "^4.5.0",
+    "mini-css-extract-plugin": "^1.3.1",
+    "postcss-loader": "^4.1.0",
+    "webpack": "^5.9.0",
+    "webpack-cli": "^4.2.0",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "core-js": "^3.8.0"
+  }
+}

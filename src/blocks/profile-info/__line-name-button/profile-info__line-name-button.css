@@ -1,0 +1,12 @@
+.profile-info__line-name-button {
+  display: flex;
+  flex-direction: row;
+  grid-area: flex-block;
+  align-items: flex-end;
+}
+
+@media all and (max-width: 880px) {
+  .profile-info__line-name-button {
+   justify-content: center;
+  }
+}

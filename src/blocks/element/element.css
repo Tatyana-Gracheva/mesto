@@ -1,0 +1,15 @@
+@import url(./__image/element__image.css);
+@import url(./__delet/element__delet.css);
+@import url(./__signature/element__signature.css);
+@import url(./__name/element__name.css);
+@import url(./__like/element__like.css);
+@import url(./__like/_active/element__like_active.css);
+.element {
+  display: flex;
+  flex-direction: column;
+  background: #FFFFFF;
+  border-radius: 10px;
+  overflow: hidden; 
+  position: relative;
+  
+}

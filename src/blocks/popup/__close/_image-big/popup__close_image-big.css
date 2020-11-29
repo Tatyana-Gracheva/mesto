@@ -1,0 +1,10 @@
+.popup__close_image-big {
+  left: 100%;
+  top: -40px;
+}
+
+@media all and (max-width: 880px) {
+  .popup__close_image-big {
+    top: -30px;
+  }
+}
