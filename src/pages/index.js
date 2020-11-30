@@ -11,6 +11,17 @@ import '../pages/index.css';
 const popupEditProfileValidation = new FormValidator(formObject,popupEditProfile);
 const popupAddCardValidation = new FormValidator(formObject,popupAddCard);
 
+
+
+const popupEditProfileFromClass = new PopupWithForm({popupSelector: '.popup_edit-profile',
+  callbackSubmitForm: (userNameJob) => {
+    const newUserInfo = new UserInfo(profileDataSelector);
+    newUserInfo.setUserInfo(userNameJob);
+    popupEditProfileFromClass.setInputValues(newUserInfo.getUserInfo());
+  }
+});
+popupEditProfileFromClass.setEventListeners();
+
 const cardList = new Section({
   items: initialCards,
   renderer: (data) => {
@@ -26,21 +37,12 @@ const cardList = new Section({
 );
 cardList.renderItems();
 
-const popupEditProfileFromClass = new PopupWithForm({popupSelector: '.popup_edit-profile',
-  callbackSubmitForm: (userNameJob) => {
-    const newUserInfo = new UserInfo(profileDataSelector);
-    newUserInfo.setUserInfo(userNameJob);
-    popupEditProfileFromClass.setInputValues(newUserInfo.getUserInfo());
-  }
-});
-popupEditProfileFromClass.setEventListeners();
-
-const popupAddCardFromClass = new PopupWithForm({popupSelector: '.popup_add-element', 
-  callbackSubmitForm: (newCardData) => {
+const popupAddCardFromClass = new PopupWithForm({
+  popupSelector: '.popup_add-element', 
+  callbackSubmitForm: (newCardData) => { 
     const newCard = new Card({
       data: newCardData, 
-      handleCardClick: (newCardData) => {
-        console.log(newCardData);
+      handleCardClick: () => {
         popupImageBigFromClass.open(newCardData);
       }
     }, '.element-template');
