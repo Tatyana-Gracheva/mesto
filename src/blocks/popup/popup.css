@@ -1,5 +1,3 @@
-@import url(./_add-element/popup_add-element.css);
-@import url(./_edit-profile/popup_edit-profile.css);
 @import url(./_image-big/popup_image-big.css);
 @import url(./__content/popup__content.css);
 @import url(./__title/popup__title.css);
@@ -18,5 +16,7 @@
   left: 0;
   width: 100%;
   height: 100%;
+  opacity: 0;
+  transition: visibility .5s ease, opacity .5s linear;
   visibility: hidden;
 }

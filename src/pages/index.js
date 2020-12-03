@@ -1,26 +1,15 @@
-import { Card } from '../scripts/Card.js';
-import { FormValidator } from '../scripts/FormValidator.js';
-import Section from '../scripts/Section.js';
-import PopupWithImage from '../scripts/PopupWithImage.js';
-import PopupWithForm from '../scripts/PopupWithForm.js';
-import UserInfo from '../scripts/UserInfo.js'
+import { Card } from '../components/Card.js';
+import { FormValidator } from '../components/FormValidator.js';
+import Section from '../components/Section.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js'
 import { initialCards, formObject, cards, popupEditProfile, popupAddCard, popupOpenButtonEditProfile, popupOpenButtonAddCard, profileDataSelector } from '../utils/constants.js'; 
 
-import '../pages/index.css';
+//import '../pages/index.css';
 
 const popupEditProfileValidation = new FormValidator(formObject,popupEditProfile);
 const popupAddCardValidation = new FormValidator(formObject,popupAddCard);
-
-
-
-const popupEditProfileFromClass = new PopupWithForm({popupSelector: '.popup_edit-profile',
-  callbackSubmitForm: (userNameJob) => {
-    const newUserInfo = new UserInfo(profileDataSelector);
-    newUserInfo.setUserInfo(userNameJob);
-    popupEditProfileFromClass.setInputValues(newUserInfo.getUserInfo());
-  }
-});
-popupEditProfileFromClass.setEventListeners();
 
 const cardList = new Section({
   items: initialCards,
@@ -53,11 +42,21 @@ const popupAddCardFromClass = new PopupWithForm({
 });
 popupAddCardFromClass.setEventListeners();
 
+const newUserInfo = new UserInfo(profileDataSelector);
+const popupEditProfileFromClass = new PopupWithForm({popupSelector: '.popup_edit-profile',
+  callbackSubmitForm: (userNameJob) => {
+    newUserInfo.setUserInfo(userNameJob); 
+  }
+});
+popupEditProfileFromClass.setEventListeners();
+
 const popupImageBigFromClass = new PopupWithImage('.popup_image-big');
 popupImageBigFromClass.setEventListeners();
 
 popupOpenButtonEditProfile.addEventListener('click', () => {
   popupEditProfileFromClass.open();
+  popupEditProfileFromClass.setInputValues(newUserInfo.getUserInfo());
+  popupEditProfileValidation.antidisabledButton();
 });
 
 popupOpenButtonAddCard.addEventListener('click', () => {

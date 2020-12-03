@@ -9,7 +9,7 @@ export class FormValidator {
   }
 
   //метод запуска проверки на валидность
-  enableValidation () {
+  enableValidation() {
       this._form.addEventListener('submit', (evt) => {
         // У каждой формы отменим стандартное поведение
         evt.preventDefault();
@@ -46,14 +46,17 @@ export class FormValidator {
     this._buttonElement.classList.add(this._inactiveButtonClass);
     this._buttonElement.setAttribute('disabled', true);
   }
-
+  antidisabledButton() {
+    this._buttonElement.classList.remove(this._inactiveButtonClass);
+    this._buttonElement.removeAttribute('disabled');
+  }
+  
   //метод изменения активности кнопок в зависимости от того, какое значение вернет метод hasInvalidInput
   _toggleButtonState() {
     if (this._hasInvalidInput(this._inputList)) {
       this.disabledButton();
     } else {
-      this._buttonElement.classList.remove(this._inactiveButtonClass);
-      this._buttonElement.removeAttribute('disabled');
+      this.antidisabledButton();
     }
   }
     
