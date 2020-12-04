@@ -6,7 +6,7 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js'
 import { initialCards, formObject, cards, popupEditProfile, popupAddCard, popupOpenButtonEditProfile, popupOpenButtonAddCard, profileDataSelector } from '../utils/constants.js'; 
 
-//import '../pages/index.css';
+import '../pages/index.css';
 
 const popupEditProfileValidation = new FormValidator(formObject,popupEditProfile);
 const popupAddCardValidation = new FormValidator(formObject,popupAddCard);
@@ -56,7 +56,7 @@ popupImageBigFromClass.setEventListeners();
 popupOpenButtonEditProfile.addEventListener('click', () => {
   popupEditProfileFromClass.open();
   popupEditProfileFromClass.setInputValues(newUserInfo.getUserInfo());
-  popupEditProfileValidation.antidisabledButton();
+  popupEditProfileValidation.enableButton();
 });
 
 popupOpenButtonAddCard.addEventListener('click', () => {
