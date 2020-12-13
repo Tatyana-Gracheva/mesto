@@ -6,6 +6,7 @@ export class FormValidator {
     this._inputErrorClass = objectToValidate.inputErrorClass;
     this._errorClass = objectToValidate.errorClass;
     this._form = form;
+    this._buttonElement = this._form.querySelector(this._submitButtonSelector);
   }
 
   //метод запуска проверки на валидность
@@ -22,7 +23,6 @@ export class FormValidator {
   _setEventListeners() {
     //создаем массив инпутов формы
     this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
-    this._buttonElement = this._form.querySelector(this._submitButtonSelector);
     //делаем кнопку отправки неактивной при открытии попапов
     this._toggleButtonState();
     this._inputList.forEach((inputElement) => {

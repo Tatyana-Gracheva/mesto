@@ -38,11 +38,20 @@ export const cards = document.querySelector('.elements');
 
 //константы для открытия/закрытия попапов
 export const popupEditProfile = document.querySelector('.popup_edit-profile');
-export const popupAddCard = document.querySelector('.popup_add-element');
-export const popupOpenButtonEditProfile = document.querySelector('.profile-info__edit-button');
-export const popupOpenButtonAddCard = document.querySelector('.profile-info__add-button');
+export const popupEditProfileSubmitButton = popupEditProfile.querySelector('.popup__submit-button');
 
+export const popupEditAvatar = document.querySelector('.popup_edit-avatar');
+export const popupEditAvatarSubmitButton = popupEditAvatar.querySelector('.popup__submit-button');
+
+export const popupAddCard = document.querySelector('.popup_add-element');
+export const popupAddCardSubmitButton = popupAddCard.querySelector('.popup__submit-button');
+export const popupOpenButtonEditProfile = document.querySelector('.profile-info__edit-button');
+
+export const popupOpenButtonAddCard = document.querySelector('.profile-info__add-button');
+export const popupOpenButtonEditAvatar = document.querySelector('.profile-info__edit-avatar');
+
+export const popupDeleteCardSubmitButton= document.querySelector('.popup_delet-card').querySelector('.popup__submit-button');
 //константы для редактирования профиля
 export const profileInfo = document.querySelector('.profile-info');
 
-export const profileDataSelector = {name:'.profile-info__name', job: '.profile-info__about'}
+export const profileDataSelector = {name:'.profile-info__name', job: '.profile-info__about', avatar: '.profile-info__avatar'}

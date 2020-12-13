@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-
+  
   <!--<link rel="stylesheet" href="./pages/index.css"> -->
   <title>Mesto</title>
 </head>
@@ -18,13 +18,17 @@
     <main>
       <section class="profile">
         <div class="profile-info">
-          <!--<img class="profile-info__avatar" src="./images/jac-kusto.jpg" alt="Здесь аватар (фото Жака-Ив Кусто)">-->
-          <img class="profile-info__avatar" src="<%=require('./images/jac-kusto.jpg')%>" alt="Здесь аватар (фото Жака-Ив Кусто)">
+          <img class="profile-info__avatar" src="" alt="Здесь аватар">
+          <button class = "profile-info__edit-avatar">
+            <!--<img  src="./images/big-pen.png">-->
+            <img class="profile-info__avatar" src="<%=require('./images/big-pen.png')%>" alt="Здесь аватар">
+          </button>
+         
           <div class="profile-info__line-name-button">
-            <h1 class="profile-info__name">Жак-Ив Кусто</h1>
+            <h1 class="profile-info__name"></h1>
             <button class="profile-info__edit-button"></button>
           </div>
-          <p class="profile-info__about">Исследователь океана</p>
+          <p class="profile-info__about"></p>
         </div>
         <button class="profile-info__add-button"></button>
       </section>
@@ -38,17 +42,15 @@
     <footer class="footer">
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
-    
-
 
     <section class="popup popup_edit-profile">
       <button class="popup__close"></button>  
       <form class="popup__content" novalidate>
         <h4 class="popup__title">Редактировать профиль</h4>
-        <input type="text" name="firstValue" class="popup__input popup__input_type_fist-value"  minlength="2" maxlength="40" required>
-        <span id="firstValue-error" class="popup__input-error"></span>
-        <input type="text" name="secondValue" class="popup__input popup__input_type_second-value"  minlength="2" maxlength="200" required>
-        <span id="secondValue-error" class="popup__input-error"></span>
+        <input type="text" name="name" class="popup__input popup__input_type_fist-value"  minlength="2" maxlength="40" required>
+        <span id="name-error" class="popup__input-error"></span>
+        <input type="text" name="about" class="popup__input popup__input_type_second-value"  minlength="2" maxlength="200" required>
+        <span id="about-error" class="popup__input-error"></span>
         <button class="popup__submit-button">Сохранить</button>
       </form>
     </section>
@@ -57,11 +59,29 @@
       <button class="popup__close"></button>  
       <form class="popup__content" novalidate>
         <h4 class="popup__title">Новое место</h4>
-        <input type="text" name="firstValue" class="popup__input popup__input_type_fist-value" value = "" placeholder="Название" minlength="1" maxlength="30" required>
-        <span id="firstValue-error" class="popup__input-error"></span>
-        <input type="url" name="secondValue" class="popup__input popup__input_type_second-value" value = "" placeholder="Ссылка на картинку" required>
-        <span id="secondValue-error" class="popup__input-error"></span>
+        <input type="text" name="name" class="popup__input popup__input_type_fist-value" value = "" placeholder="Название" minlength="1" maxlength="30" required>
+        <span id="name-error" class="popup__input-error"></span>
+        <input type="url" name="link" class="popup__input popup__input_type_second-value" value = "" placeholder="Ссылка на картинку" required>
+        <span id="link-error" class="popup__input-error"></span>
         <button class="popup__submit-button">Создать</button>
+      </form>
+    </section>
+
+    <section class="popup popup_edit-avatar">
+      <button class="popup__close"></button>  
+      <form class="popup__content" novalidate>
+        <h4 class="popup__title">Обновить аватар</h4>
+        <input type="url" name="avatar" class="popup__input popup__input_type_fist-value" value = "" placeholder="Ссылка на аватар" required>
+        <span id="avatar-error" class="popup__input-error"></span>
+        <button class="popup__submit-button">Сохранить</button>
+      </form>
+    </section>
+
+    <section class="popup popup_delet-card">
+      <button class="popup__close"></button>  
+      <form class="popup__content">
+        <h4 class="popup__title">Вы уверены?</h4>
+        <button class="popup__submit-button">Да</button>
       </form>
     </section>
 
@@ -83,12 +103,15 @@
       <button class="element__delet"></button>
       <div class="element__signature">
         <h3 class="element__name"></h3>
-        <button class="element__like"></button>
+        <div class="element__like-number-group">
+          <button class="element__like"></button>
+          <div class="element__number">0</div>
+        </div>
       </div>
     </li>
   </template>
   
-
+  
   <!--<script type="module" src='../src/pages/index.js'></script>-->
 </body>
 </html>

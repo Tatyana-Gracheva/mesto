@@ -4,6 +4,8 @@
 @import url(./__edit-button/profile-info__edit-button.css);
 @import url(./__line-name-button/profile-info__line-name-button.css);
 @import url(./__add-button/profile-info__add-button.css);
+@import url(./__edit-avatar/profile-info__edit-avatar.css);
+@import url(./_changed-avatar/profile-info_changed-avatar.css);
 
 .profile-info {
   display: grid;
@@ -12,6 +14,7 @@
   grid-template-areas: 
   "avatar flex-block"
   "avatar about";
+  position: relative;
 }
 
 @media all and (max-width: 880px) {

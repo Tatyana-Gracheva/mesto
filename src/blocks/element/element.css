@@ -2,8 +2,12 @@
 @import url(./__delet/element__delet.css);
 @import url(./__signature/element__signature.css);
 @import url(./__name/element__name.css);
+@import url(./__like-number-group/element__like-number-group.css);
 @import url(./__like/element__like.css);
+@import url(./__number/element__number.css);
 @import url(./__like/_active/element__like_active.css);
+@import url(./__delet/_hidden/element__delet_hidden.css);
+
 .element {
   display: flex;
   flex-direction: column;

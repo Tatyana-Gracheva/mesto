@@ -5,6 +5,11 @@
   grid-area: avatar;
   align-self: center; 
   padding: 0;
+  object-fit: cover;
+}
+
+.profile-info__avatar:hover {
+  opacity: 0.5;
 }
 
 @media all and (max-width: 880px) {

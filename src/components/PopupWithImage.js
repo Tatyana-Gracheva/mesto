@@ -7,9 +7,9 @@ export default class PopupWithImage extends Popup {
   }
 
   open(data) {
-    this._popupImage.src = data.secondValue;
-    this._popupImage.alt = `Здесь фото ${data.firstValue}`; 
-    this._popupElement.querySelector('.popup__box-title').textContent = data.firstValue;
+    this._popupImage.src = data.link;
+    this._popupImage.alt = `Здесь фото ${data.name}`; 
+    this._popupElement.querySelector('.popup__box-title').textContent = data.name;
     super.open();
   }
 }

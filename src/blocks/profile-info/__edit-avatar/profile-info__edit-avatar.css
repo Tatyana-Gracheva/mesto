@@ -1,0 +1,16 @@
+.profile-info__edit-avatar{
+  height: 26px;
+  width: 26px;
+  position: absolute;
+  left: 47px;
+  top: 47px;
+ /* background-image: url(../../../images/big-pen.png);*/
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  border: none;
+  box-sizing: border-box;
+  visibility: hidden;
+  background: rgba(0, 0, 0, 0);
+  outline: none;
+}

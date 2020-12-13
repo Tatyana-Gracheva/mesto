@@ -12,6 +12,7 @@
   cursor: pointer;
   transition: opacity 1s ease 0s;
   background-color: rgba(256, 256, 256, 0);
+  outline: none;
 }
 
 .element__delet:hover {
