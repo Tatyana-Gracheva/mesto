@@ -4,19 +4,23 @@ export default class Api {
     this._headers = options.headers;
   }
 
+_getResPromise(resPromise) {
+  if (resPromise.ok) 
+    {
+      return resPromise.json()}
+  Promise.reject(`Произошла ошибка: ${resPromise.status}`)
+}
+
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, 
       {
         headers: this._headers
       })
       .then((res) => {
-        if (res.ok) 
-          {return res.json()}
-        Promise.reject(`Произошла ошибка: ${res.status}`)
+        return this._getResPromise(res)
+        
       })
   }
-
-  
 
   changeUserInfo(userNameAbout) {
     return fetch(`${this._baseUrl}/users/me`, 
@@ -29,9 +33,7 @@ export default class Api {
         })
       })
       .then((res) => {
-        if (res.ok) 
-          {return res.json()}
-        Promise.reject(`Произошла ошибка ${res.status}`)
+        return this._getResPromise(res);
       })
   }
 
@@ -45,9 +47,7 @@ export default class Api {
         })
       })
       .then((res) => {
-        if (res.ok) 
-          {return res.json()}
-        Promise.reject(`Произошла ошибка ${res.status}`)
+        return this._getResPromise(res);
       })
   }
 
@@ -62,9 +62,7 @@ export default class Api {
         })
       })
       .then((res) => {
-        if (res.ok) 
-          {return res.json()}
-        Promise.reject(`Произошла ошибка ${res.status}`)
+        return this._getResPromise(res);
       })
   }
 
@@ -75,9 +73,7 @@ export default class Api {
       headers: this._headers,
     })
     .then((res) => {
-      if (res.ok) 
-        {return res.json()}
-      Promise.reject(`Произошла ошибка ${res.status}`)
+      return this._getResPromise(res);
     })
   }
 
@@ -88,9 +84,7 @@ export default class Api {
       headers: this._headers,
     })
     .then((res) => {
-      if (res.ok) 
-        {return res.json()}
-      Promise.reject(`Произошла ошибка ${res.status}`)
+      return this._getResPromise(res);
     })
   }
 
@@ -101,9 +95,7 @@ export default class Api {
       headers: this._headers,
     })
     .then((res) => {
-      if (res.ok) 
-        {return res.json()}
-      Promise.reject(`Произошла ошибка ${res.status}`)
+      return this._getResPromise(res);
     })
   }
 
@@ -112,18 +104,10 @@ export default class Api {
       {
         headers: this._headers
       })
-      .then((res) => {
-        if (res.ok) 
-          {return res.json()}
-        Promise.reject(`Произошла ошибка ${res.status}`)
+      .then((res) => { 
+        return this._getResPromise(res);
       })
   }
 }
 
-export const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-18',
-  headers: {
-    authorization: '5457ecbb-4a90-45eb-b193-22d44c85f716',
-    'Content-Type': 'application/json'
-  }
-}); 
+

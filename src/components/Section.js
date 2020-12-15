@@ -6,7 +6,8 @@ export default class Section {
   }
 
   renderItems() {
-    this._items.forEach(item => this._renderer(item))
+    this._reversItem = this._items.reverse();
+    this._reversItem.forEach(item => this._renderer(item))
   }
 
   addItem(card) {

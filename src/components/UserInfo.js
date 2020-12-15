@@ -11,7 +11,7 @@ export default class UserInfo {
   }
 
   getUserInfo() {
-    return {user: this._profileName.textContent, info: this._profileJob.textContent};
+    return {firstValue: this._profileName.textContent, secondValue: this._profileJob.textContent};
   }
   
   setUserInfo({firstValue, secondValue}) {

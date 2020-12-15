@@ -65,17 +65,13 @@ export class Card {
     if (this._userID !== this._idUserCard) {
       this._toggleDeletButtonHidden(cardDeleteButton);
     }
-    //const likeUserId = 0;
     if (this._likes !== []) {
       const likeUserId = this._likes.find(element => 
-          element._id = this._userID);
+          element._id === this._userID);
       if (likeUserId !== undefined) {
         this._toggleLikeButtonActive(cardLikeButton);
       }
     }
-  
-
-    
     this._setEventListeners(popupOpenButtonImageBig, cardLikeNumber, cardDeleteButton, cardLikeButton);
     return this._card;
   }

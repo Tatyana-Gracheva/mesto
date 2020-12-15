@@ -5,7 +5,7 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js'
 import { formObject, cards, popupEditProfile, popupEditAvatar, popupAddCard, popupOpenButtonEditProfile, popupOpenButtonAddCard, profileDataSelector, popupOpenButtonEditAvatar, profileInfo, popupEditProfileSubmitButton, popupEditAvatarSubmitButton, popupAddCardSubmitButton, popupDeleteCardSubmitButton} from '../utils/constants.js'; 
-import {api} from '../components/Api.js';
+import Api from '../components/Api.js';
 import PopupWithSubmit from '../components/PopupWithSubmit.js';
 
 import '../pages/index.css';
@@ -15,7 +15,6 @@ import '../pages/index.css';
 const popupEditProfileValidation = new FormValidator(formObject,popupEditProfile);
 const popupEditAvatarValidation = new FormValidator(formObject,popupEditAvatar);
 const popupAddCardValidation = new FormValidator(formObject,popupAddCard);
-//https://pictures.s3.yandex.net/frontend-developer/common/ava.jpg
 
 function  toggleLikeElement(cardLikeButton,cardLikeNumber, length) {
   cardLikeButton.classList.toggle('element__like_active');
@@ -42,6 +41,41 @@ function clickOnLike(cardLikeButton, cardLikeNumber, cardID) {
     }
 }
 
+function createNewCardFromClass(data, userID, popupImageBigFromClass) {
+  const newCard = new Card({
+    data, 
+    handleCardClick: () => {
+      popupImageBigFromClass.open(data);
+    },
+    handleLikeClick: (cardLikeButton, cardLikeNumber, id) => {
+      clickOnLike(cardLikeButton, cardLikeNumber, id);
+    },
+    handleDeleteClick: (cardId) => {
+      popupDeleteCardFromClass.setSubmitAction(() => {
+        const cardDeletFromServer = api.removeCard(cardId);
+        popupDeleteCardSubmitButton.textContent = 'Удаление...';
+        cardDeletFromServer
+        .then(() => {
+          newCard.deleteCard(newCard.cardDeleted);
+          popupDeleteCardFromClass.close();
+          popupDeleteCardSubmitButton.textContent = 'Да'
+        })
+        .catch((err) => console.log(err))
+      })
+      popupDeleteCardFromClass.open();
+    }
+  },'.element-template',userID);
+  return newCard;
+}
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-18',
+  headers: {
+    authorization: '5457ecbb-4a90-45eb-b193-22d44c85f716',
+    'Content-Type': 'application/json'
+  }
+}); 
+
 const newUserInfo = new UserInfo(profileDataSelector);
 //запрашиваем данные пользователя с сервера, получаем промис
 const userInfoFromServer = api.getUserInfo();
@@ -60,35 +94,13 @@ const cardListFromServer = api.getInitialCards();
 //обрабатываем из промиса полученный список карточек
 cardListFromServer
   .then((dataFromServer) => {
-    console.log(dataFromServer);
+    const popupImageBigFromClass = new PopupWithImage('.popup_image-big');
+    popupImageBigFromClass.setEventListeners();
+
     const cardList = new Section({
       items: dataFromServer,
       renderer: (data) => { 
-        const newCard = new Card({
-          data, 
-          handleCardClick: () => {
-            popupImageBigFromClass.open(data);
-          },
-          handleLikeClick: (cardLikeButton, cardLikeNumber, id) => {
-            clickOnLike(cardLikeButton, cardLikeNumber, id);
-          },
-          handleDeleteClick: (cardId) => {
-            popupDeleteCardFromClass.setSubmitAction(() => {
-              const cardDeletFromServer = api.removeCard(cardId);
-              popupDeleteCardSubmitButton.textContent = 'Удаление...'
-              cardDeletFromServer
-              .then(() => {
-                newCard.deleteCard(newCard.cardDeleted);
-              })
-              .catch((err) => console.log(err))
-              .finally(() => {
-                popupDeleteCardSubmitButton.textContent = 'Да'
-                popupDeleteCardFromClass.close();
-              })
-            })
-            popupDeleteCardFromClass.open();
-          }
-        },'.element-template',userID);
+        const newCard = createNewCardFromClass(data, userID, popupImageBigFromClass);
         const card = newCard.createCard();
         cardList.addItem(card);
       
@@ -104,37 +116,14 @@ cardListFromServer
         popupAddCardSubmitButton.textContent = 'Загрузка...';
         newCardToServer
           .then((dataCardFromServer) => {
-            const newCard = new Card({
-              data: dataCardFromServer, 
-              handleCardClick: () => {
-                popupImageBigFromClass.open(dataCardFromServer);
-              },
-              handleLikeClick: (cardLikeButton, cardLikeNumber, id) => {
-                clickOnLike(cardLikeButton, cardLikeNumber, id);
-              },
-              handleDeleteClick: (cardId) => {
-                popupDeleteCardFromClass.setSubmitAction(() => {
-                  const cardDeletFromServer = api.removeCard(cardId);
-
-                  cardDeletFromServer
-                  .then(() => {
-                    newCard.deleteCard(newCard.cardDeleted);
-                  })
-                  .catch((err) => console.log(err));
-                })
-                popupDeleteCardFromClass.open();
-              }
-            }, '.element-template', userID);
+            const newCard = createNewCardFromClass(dataCardFromServer, userID, popupImageBigFromClass)
             const card = newCard.createCard();
             cardList.addItem(card);
-
             popupAddCardValidation.disabledButton();
+            popupAddCardFromClass.close();
+            popupAddCardSubmitButton.textContent = 'Сохранить';
           })
           .catch((err) => console.log(err))
-          .finally(() => {
-            popupAddCardSubmitButton.textContent = 'Сохранить';
-            popupAddCardFromClass.close();
-          })
       }
     });
 
@@ -143,12 +132,8 @@ cardListFromServer
       popupAddCardFromClass.open();
     });
 
-    const popupImageBigFromClass = new PopupWithImage('.popup_image-big');
-    popupImageBigFromClass.setEventListeners();
-
   })
   .catch((err) => console.log(err));
-
 
   })
   .catch((err) => console.log(err));
@@ -163,12 +148,10 @@ const popupEditProfileFromClass = new PopupWithForm({popupSelector: '.popup_edit
     changeUserInfio
       .then(() => {
         newUserInfo.setUserInfo({firstValue: userNameJob.name, secondValue: userNameJob.about}); 
+        popupEditProfileFromClass.close();
+        popupEditProfileSubmitButton.textContent = 'Сохранить';
       })
       .catch((err) => console.log(err))
-      .finally(() => {
-        popupEditProfileSubmitButton.textContent = 'Сохранить';
-        popupEditProfileFromClass.close();
-      })
   }
 });
 popupEditProfileFromClass.setEventListeners();
@@ -180,13 +163,11 @@ const popupEditAvatarFromClass = new PopupWithForm({popupSelector: '.popup_edit-
     const changeAvatar = api.changeAvatar(urlAvatar.avatar);
     changeAvatar
     .then((data) => {
-      newUserInfo.setUserAvatar(data.avatar)
+      newUserInfo.setUserAvatar(data.avatar);
+      popupEditAvatarFromClass.close();
+      popupEditAvatarSubmitButton.textContent = 'Сохранить';
     })
     .catch((err) => console.log(err))
-    .finally(() => {
-      popupEditAvatarSubmitButton.textContent = 'Сохранить';
-      popupEditAvatarFromClass.close();
-    })
   }
 });
 popupEditAvatarFromClass.setEventListeners();
@@ -213,7 +194,6 @@ popupOpenButtonEditAvatar.addEventListener('mouseout', () => {
   popupOpenButtonEditAvatar.classList.toggle('profile-info_changed-avatar');
   profileInfo.querySelector('.profile-info__avatar').style.opacity = '1';
 })
-
 
 popupEditProfileValidation.enableValidation();
 popupEditAvatarValidation.enableValidation();
